@@ -13,7 +13,7 @@ def list():
 def get(item_id):
     return jsonify(db.fetch(item_id))
 
-@app.route('/')
+@app.route('/', methods=['POST'])
 def add():
     db.add(request.json)
     return Response(status=201)
