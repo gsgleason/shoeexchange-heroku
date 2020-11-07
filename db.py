@@ -6,7 +6,7 @@ REDIS_URL = os.environ['REDIS_URL']
 class DB:
 
     def __init__(self, primary_key_name, set_name):
-        r = redis.Redis.from_url(REDIS_URL)
+        self.r = redis.Redis.from_url(REDIS_URL)
         # set_name is the name of the redis set to which hashes will be added as members
         # primary_key_name is the dictionary key that will also be the redis key for the hash of values
         self.primary_key_name = primary_key_name
