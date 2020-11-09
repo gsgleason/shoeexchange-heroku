@@ -15,16 +15,16 @@ def find_details(submission):
 def add_listing(comment):
     submission = comment.submission
     listing = {}
-    listing[submission_id] = submission.id
-    listing[title] = submission.title
-    listing[permalink] = submission.permalink
-    listing[flair_text] = submission.link_flair_text
-    listing[url] = submission.url
-    listing[redditor] = submission.author.name
-    listing[created_utc] = datetime.utcfromtimestamp(submission.created_utc)
-    listing[updated_utc] = datetime.utcnow()
+    listing['submission_id'] = submission.id
+    listing['title'] = submission.title
+    listing['permalink'] = submission.permalink
+    listing['flair_text'] = submission.link_flair_text
+    listing['url'] = submission.url
+    listing['redditor'] = submission.author.name
+    listing['created_utc'] = datetime.utcfromtimestamp(submission.created_utc)
+    listing['updated_utc'] = datetime.utcnow()
     if submission.thumbnail.startswith('https:'):
-        listing[thumbnail_url] = submission.thumbnail
+        listing['thumbnail_url'] = submission.thumbnail
     for line in comment.body.splitlines():
         m1 = p1.search(line)
         m2 = p2.search(line)
@@ -39,30 +39,30 @@ def add_listing(comment):
         m11 = p11.search(line)
         m12 = p12.search(line)
         if m1:
-            listing[brand] = m1.group(1).strip('*').strip()
+            listing['brand'] = m1.group(1).strip('*').strip()
         if m2:
-            listing[model] = m2.group(1).strip('*').strip()
+            listing['model'] = m2.group(1).strip('*').strip()
         if m3:
-            listing[size] = m3.group(1).strip('*').strip()
+            listing['size'] = m3.group(1).strip('*').strip()
         if m4:
-            listing[width] = m4.group(1).strip('*').strip()
+            listing['width'] = m4.group(1).strip('*').strip()
         if m5:
-            listing[last] = m5.group(1).strip('*').strip()
+            listing['last'] = m5.group(1).strip('*').strip()
         if m6:
-            listing[upper] = m6.group(1).strip('*').strip()
+            listing['upper'] = m6.group(1).strip('*').strip()
         if m7:
-            listing[sole] = m7.group(1).strip('*').strip()
+            listing['sole'] = m7.group(1).strip('*').strip()
         if m8:
-            listing[condition] = m8.group(1).strip('*').strip()
+            listing['condition'] = m8.group(1).strip('*').strip()
         if m9:
-            listing[images] = m9.group(1).strip('*').strip()
+            listing['images'] = m9.group(1).strip('*').strip()
         if m10:
-            listing[notes] = m10.group(1).strip('*').strip()
+            listing['notes'] = m10.group(1).strip('*').strip()
         if m11:
-            listing[price] = m11.group(1).strip('*').strip()
+            listing['price'] = m11.group(1).strip('*').strip()
         if m12:
-            listing[country] = m12.group(1).strip('*').strip()
-    if not listing[size] or not listing[brand] or not listing[price]:
+            listing['country'] = m12.group(1).strip('*').strip()
+    if not listing['size'] or not listing['brand'] or not listing['price']:
         return
     db.add(listing)
     return True
