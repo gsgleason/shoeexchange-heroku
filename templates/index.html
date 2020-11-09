@@ -21,8 +21,9 @@
 	<div class="col table-responsive">
                         {% for listing in listings %}
                             {% for key, value in listing.iteritems() %}
-                            {{ key }}
-                            {{ value }}
+                                {{ key }}
+                                {{ value }}
+                            {% endfor %}
                         {% endfor %}
                         {#
 			<table class="table table-sm">
