@@ -8,7 +8,8 @@ db = DB("submission_id", "listings")
 @app.route('/')
 def index():
     listings = db.fetchall()
-    if "application/json" in request.headers['accept'].split(","):
-        return jsonify(listings)
+    if "accept" in request.headers:
+        if "application/json" in request.headers['accept'].split(","):
+            return jsonify(listings)
     return render_template('index.html', listings=listings)
 
