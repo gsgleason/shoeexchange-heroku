@@ -19,6 +19,12 @@
 
 <div class="row mb-3">
 	<div class="col table-responsive">
+                        {% for listing in listings %}
+                            {% for key, value in listing.iteritems() %}
+                            {{ key }}
+                            {{ value }}
+                        {% endfor %}
+                        {#
 			<table class="table table-sm">
 				<thead>
 					<tr>
@@ -32,7 +38,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					{% for listing in listings %}
+                {% for listing in listings %}
 					<tr>
 						<td>{% if listing['thumbnail_url'] %}<a href="https://www.reddit.com{{ listing['permalink'] }}" target="_blank"><img src="{{listing['thumbnail_url'] }}" width="140" alt="Permalink"></a>{% endif %}</td>
 						<td>{{ listing['brand'] }}</td>
@@ -45,6 +51,7 @@
 				{% endfor %}
 				</tbody>
 			</table>
+            #}
 		</div>
 </div>
 
