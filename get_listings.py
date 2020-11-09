@@ -23,8 +23,8 @@ def add_listing(comment):
     listing['flair_text'] = submission.link_flair_text
     listing['url'] = submission.url
     listing['redditor'] = submission.author.name
-    listing['created_utc'] = datetime.fromtimestamp(submission.created_utc).strftime('%Y-%m-%d')
-    listing['updated_utc'] = datetime.utcnow().strftime('%Y-%m-%d')
+    listing['created_utc'] = datetime.fromtimestamp(submission.created_utc).strftime('%Y-%m-%d %H:%M')
+    listing['updated_utc'] = datetime.utcnow().strftime('%Y-%m-%d %H:%M')
     if submission.thumbnail.startswith('https:'):
         listing['thumbnail_url'] = submission.thumbnail
     for line in comment.body.splitlines():
