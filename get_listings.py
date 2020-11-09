@@ -1,9 +1,10 @@
 import re
 import time
 from db import DB
-from reddit import get_reddit
+import praw
 
-reddit = get_reddit()
+reddit = praw.Reddit()
+
 db = DB("submission_id", "listings")
 
 def find_details(submission):
