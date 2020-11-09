@@ -4,7 +4,7 @@
 <div class="row mb-3">
 	<div class="col">
 		<p>Here are the listings for the Reddit Shoe Exchange. Listings are updated daily.</p>
-		<p>Last updated: {{ datetime.fromtimestamp(listings[0]['updated_utc']) }} UTC</p>
+		<p>Last updated: {{ datetime.fromtimestamp(int(listings[0]['updated_utc'])) }} UTC</p>
 	</div>
 </div>
 
@@ -40,7 +40,7 @@
 						<td>{{ listing['size'] }}</td>
 						<td>{{ listing['width'] }}</td>
 						<td>{{ listing['price'] }}</td>
-						<td>{{ datetime.fromtimestamp(listing['created_utc']).strftime('%Y-%m-%d') }}</td>
+						<td>{{ datetime.fromtimestamp(int(listing['created_utc'])).strftime('%Y-%m-%d') }}</td>
 					</tr>
 				{% endfor %}
 				</tbody>
