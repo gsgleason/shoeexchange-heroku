@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block body %}
+
+<div class="row mb-3">
+	<div class="col">
+		<p>Here are the listings for the Reddit Shoe Exchange. Listings are updated daily.</p>
+		<p>Last updated: {{ datetime.fromtimestamp(listings[0]['updated_utc']) }} UTC</p>
+	</div>
+</div>
+
+<div class="row mb-3">
+	<div class="col">
+		<input class="form-control search" type="text" placeholder="Filter" data-column="all">
+	</div>
+	<div class="col-auto">
+		<button type="button" class="btn btn-secondary reset">Reset Filter</button>
+	</div>
+</div>
+
+<div class="row mb-3">
+	<div class="col table-responsive">
+			<table class="table table-sm">
+				<thead>
+					<tr>
+						<th style="width:150px;" class="sorter-false filter-false">Link</th>
+						<th>Brand</th>
+						<th>Model</th>
+						<th>Size</th>
+						<th>Width</th>
+						<th>Price</th>
+						<th>Created</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for listing in listings %}
+					<tr>
+						<td>{% if listing['thumbnail_url'] %}<a href="https://www.reddit.com{{ listing['permalink'] }}" target="_blank"><img src="{{listing['thumbnail_url'] }}" width="140" alt="Permalink"></a>{% endif %}</td>
+						<td>{{ listing['brand'] }}</td>
+						<td>{{ listing['model'] }}</td>
+						<td>{{ listing['size'] }}</td>
+						<td>{{ listing['width'] }}</td>
+						<td>{{ listing['price'] }}</td>
+						<td>{{ datetime.fromtimestamp(listing['created_utc']).strftime('%Y-%m-%d') }}</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		</div>
+</div>
+
+<script>
+$( function() {
+	$( 'table' ).tablesorter({
+	theme: "bootstrap",
+		widthFixed: true,
+		widgets : [ "filter", "columns", "zebra" ],
+		widgetOptions : {
+			zebra : ["even", "odd"],
+			columns: [ "primary", "secondary", "tertiary" ],
+			filter_external: 'input.search',
+			filter_reset: '.reset',
+			// extra css class name (string or array) added to the filter element (input or select)
+			filter_cssFilter: [
+				'form-control',
+				'form-control',
+				'form-control',
+				'form-control',
+				'form-control',
+				'form-control',
+				'form-control'
+			]
+		}
+	});
+});
+</script>
+{% endblock %}
