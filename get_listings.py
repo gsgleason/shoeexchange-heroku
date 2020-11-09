@@ -62,7 +62,7 @@ def add_listing(comment):
             listing['price'] = m11.group(1).strip('*').strip()
         if m12:
             listing['country'] = m12.group(1).strip('*').strip()
-    if not listing['size'] or not listing['brand'] or not listing['price']:
+    if not listing.get('size') or not listing.get('brand') or not listing.get('price'):
         return
     db.add(listing)
     return True
