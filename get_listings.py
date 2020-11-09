@@ -1,5 +1,5 @@
 import re
-from datetime import datetime
+import time
 from db import DB
 from reddit import get_reddit
 
@@ -21,8 +21,8 @@ def add_listing(comment):
     listing['flair_text'] = submission.link_flair_text
     listing['url'] = submission.url
     listing['redditor'] = submission.author.name
-    listing['created_utc'] = datetime.utcfromtimestamp(submission.created_utc)
-    listing['updated_utc'] = datetime.utcnow()
+    listing['created_utc'] = int(submission.created_utc)
+    listing['updated_utc'] = int(time.time())
     if submission.thumbnail.startswith('https:'):
         listing['thumbnail_url'] = submission.thumbnail
     for line in comment.body.splitlines():
