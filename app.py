@@ -3,7 +3,7 @@ from db import DB
 
 app = Flask(__name__)
 
-db = DB("listing_id", "listings")
+db = DB("submission_id", "listings")
 
 @app.route('/')
 def list():
