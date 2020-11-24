@@ -95,6 +95,7 @@ good_posts = []
 i = 0
 for submission in reddit.subreddit('shoeexchange').new(limit=None):
     if submission.link_flair_text == 'SOLD':
+        db.delete(submission.id)
         continue
     if not submission.title.startswith(('[WTS]','[WTT]')):
         continue
