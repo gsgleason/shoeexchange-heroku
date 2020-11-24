@@ -34,5 +34,6 @@ class DB:
         self.r.sadd(self.set_name, key)
 
     def delete(self, key):
+        self.r.srem(self.set_name, key)
         self.r.delete(key)
 
