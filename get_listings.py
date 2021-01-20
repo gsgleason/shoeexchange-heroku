@@ -1,5 +1,4 @@
 import re
-import time
 from db import DB
 import praw
 from datetime import datetime
@@ -73,7 +72,7 @@ body = """**Details needed**
 
 Hi.  I'm trying to parse your post, but I'm not finding what I need.  Please make sure you have a top-level comment with an appropriately formatted list of details.  Please see [the wiki](/r/Shoeexchange/wiki/post_details) for instructions.
 
-Failure to do so will result in your post not being added to my [listing index](https://shoeexchange.pythonanywhere.com).
+Failure to do so will result in your post not being added to my [listing index](https://shoeexchange.herokuapp.com).
 
 Once you create or edit your top-level details comment, it should be added within 24 hours."""
 
@@ -94,20 +93,16 @@ bad_posts = []
 good_posts = []
 i = 0
 for submission in reddit.subreddit('shoeexchange').new(limit=None):
-    if submission.link_flair_text == 'SOLD':
-        db.delete(submission.id)
-        continue
-    if not submission.title.startswith(('[WTS]','[WTT]')):
-        continue
-    i+=1
-    details = find_details(submission)
-    if details:
-        result = add_listing(details)
-        if result:
-            good_posts.append(submission)
-            continue
-    # if we get here then there is no details comment
-    bad_posts.append(submission)
+    if submission.link_flair_text in ['WTS', 'WTT']:
+        i+=1
+        details = find_details(submission)
+        if details:
+            result = add_listing(details)
+            if result:
+                good_posts.append(submission)
+                continue
+        # if we get here then there is no details comment
+        bad_posts.append(submission)
 
 def get_bot_nag(submission):
     for comment in submission.comments:
